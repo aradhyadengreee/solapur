@@ -16,12 +16,14 @@ const pdfFolder = path.join(process.cwd(), "pdfs");
 app.use(cors());
 app.use(express.json());
 
-// 🧠 Connect to MongoDB replica set
-await connectDB();
+// ✅ Start MongoDB connection without blocking container startup
+connectDB()
+  .then(() => console.log("✅ MongoDB connection established"))
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
 
 // ✅ Health check
 app.get("/", (req, res) => {
-  res.json({ message: "✅ Backend connected to MongoDB replica set!" });
+  res.json({ message: "✅ Backend is running and MongoDB is initializing!" });
 });
 
 // 📄 Return entire PDF
@@ -67,7 +69,6 @@ app.get("/pdf/page", async (req, res) => {
       return res.status(400).json({ error: "Invalid page number" });
     }
 
-    // 📝 Update metadata with page and IP
     const stats = fs.statSync(filePath);
     await PDFMeta.findOneAndUpdate(
       { filename },
@@ -89,7 +90,6 @@ app.get("/pdf/page", async (req, res) => {
       { upsert: true, new: true }
     );
 
-    // Extract the requested page
     const newPdf = await PDFDocument.create();
     const [copiedPage] = await newPdf.copyPages(originalPdf, [pageNumber - 1]);
     newPdf.addPage(copiedPage);
@@ -108,7 +108,7 @@ app.get("/pdf/page", async (req, res) => {
   }
 });
 
-// 🚀 Start server
+// 🚀 Start server immediately
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
