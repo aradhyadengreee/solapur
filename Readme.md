@@ -1,12 +1,13 @@
+## 📁 Project Structure
+
+```plaintext
 .
-├── frontend/
-│   ├── frontend.Dockerfile  👈
-│   ├── package.json
-│   └── ...your Next.js files
 ├── backend/
-│   ├── backend.Dockerfile   👈
-│   ├── package.json
+│   ├── backend.Dockerfile      # Docker configuration for the Node.js backend
+│   ├── package.json            # Backend dependencies and scripts
 │   └── ...your Node backend files
 ├── .github/
 │   └── workflows/
-│       └── deploy.yml
+│       └── deploy.yml          # GitHub Actions workflow for CI/CD deployment
+
+---
