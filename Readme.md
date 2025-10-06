@@ -9,5 +9,3 @@
 ├── .github/
 │   └── workflows/
 │       └── deploy.yml          # GitHub Actions workflow for CI/CD deployment
-
----
