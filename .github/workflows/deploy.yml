@@ -54,5 +54,4 @@ jobs:
             --port 8080 \
             --memory 512Mi \
             --cpu 1 \
-            --set-env-vars MONGODB_URI=${{ secrets.MONGODB_URI }} \
-            --no-wait
+            --set-env-vars MONGODB_URI=${{ secrets.MONGODB_URI }}
