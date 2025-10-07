@@ -4,7 +4,7 @@ export async function connectDB() {
   const uri = process.env.MONGO_URI;
   if (!uri) {
     console.error("❌ MONGO_URI not set");
-    process.exit(1);
+    return; // ❌ No exit
   }
 
   try {
@@ -16,6 +16,5 @@ export async function connectDB() {
     console.log("✅ Connected to MongoDB replica set");
   } catch (err) {
     console.error("❌ MongoDB connection error:", err);
-    process.exit(1);
   }
 }
